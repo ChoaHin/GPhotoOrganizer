@@ -1,30 +1,19 @@
-import json
+# backend/main.py
 import os
-from PIL import Image
+from backend.utils.file_ops import organize_files
+from backend.utils.metadata import parse_metadata
 
-def process_photo_data(json_path, image_folder):
-    # Read JSON data
-    with open(json_path) as f:
-        data = json.load(f)
-    
-    # Extract information
-    
-    # photo_filename = data['photoFilename']
-    # date_taken = data['photoTakenTime']['formatted']
-    # location = data.get('geoData', {})
-    photo_filename = data['url']
-    date_taken = data['title']
-    location = data['description']
+def main():
+    print("Image File Manager - Backend Running")
+    sample_directory = "data/sample_photos"
+    sample_json = "data/sample_jsons/sample.json"
 
-    # Process the corresponding image
-    image_path = os.path.join(image_folder, photo_filename)
-    if os.path.exists(image_path):
-        image = Image.open(image_path)
-        # Example: Print photo info
-        print(f"Photo: {photo_filename}, Date: {date_taken}, Location: {location}")
-        # Further processing like tagging, categorizing, etc.
-    else:
-        print(f"Image file for {photo_filename} not found.")
+    # Parse metadata (example)
+    metadata = parse_metadata(sample_json)
+    print("Parsed Metadata:", metadata)
 
-# Usage
-process_photo_data('./jsons/example.json', './images/1.webp')
+    # Organize files (example)
+    organize_files(sample_directory, metadata)
+
+if __name__ == "__main__":
+    main()
