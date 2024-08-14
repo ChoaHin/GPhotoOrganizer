@@ -1,5 +1,10 @@
 # backend/main.py
 import os
+import sys
+
+# Add the backend directory to the sys.path
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
 from backend.utils.file_ops import organize_files
 from backend.utils.metadata import parse_metadata
 
