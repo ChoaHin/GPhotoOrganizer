@@ -1,1 +1,2 @@
-
+pillow  # For image processing
+pytest  # For testing
