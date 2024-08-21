@@ -18,9 +18,11 @@ def move_file(src, dest):
     except Exception as e:
         print(f"Error moving file from {src} to {dest}: {e}")
 
-def organize_files(directory, metadata):
-    ''' Organize files in a directory based on metadata '''
-    # Example logic: Create folders by date and move files
-    for item in metadata:
-        # here, you would impletment the logic to organize files
-        pass
+def scan_dir(path):
+    ''' Recursively scan the selected folder for all files '''
+    files = os.listdir(path)
+    for file in files:
+        file_path = os.path.join(path, file)
+        if file_path.is_dir():
+            scan_dir(file_path)
+    return files
