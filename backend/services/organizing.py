@@ -1,16 +1,27 @@
 #Logic for organizing files based on metadata.
 import os
 
-def organize_files(path):
-    # Get all the files in the given path.
-    files = os.listdir(path)
-    # Iterate through all the files.
+def scan_files(files):
+    ''' Seperate files based on their type '''
+    photos = []
+    editedphotos = []
+    videos = []
+    metadata = []
+
+    photo_ext = ['.png', '.jpg', '.webp']
+    edited_ext = ['-edited.png', '-edited.jpg', '-edited.webp']
+    video_ext = ['.mp4', '.mkv', '.avi']
+    metadata_ext = ['.json', '.xml', '.csv']
+
     for file in files:
-        # Get the full path of the file.
-        file_path = os.path.join(path, file)
-        # Check if the file is a directory.
-        if file_path.is_dir():
-            # Organize the files in the subdirectory.
-            organize_files(file_path)
-        else:
-            
+        if file.endswith(tuple(photo_ext)):
+            photos.append(file)
+        elif file.endswith(tuple(edited_ext)):
+            editedphotos.append(file)
+        elif file.endswith(tuple(video_ext)):
+            videos.append(file)
+        elif file.endswith(tuple(metadata_ext)):
+            metadata.append(file)
+    
+    return photos, editedphotos, videos, metadata
+
