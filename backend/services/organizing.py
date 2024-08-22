@@ -1,6 +1,6 @@
 #Logic for organizing files based on metadata.
 import os
-from backend.utils.file_ops import scan_dir
+from backend.utils.file_ops import scan_dir, copy_files
 
 def seperate_files(files):
     ''' Seperate files based on their type '''
@@ -26,3 +26,29 @@ def seperate_files(files):
             metadata.append(file)
     
     return photos, editedphotos, videos, metadata
+
+def organize_files(source_folder):
+    # Define output directories
+    photo_dir = source_folder / 'photos'
+    edited_dir = source_folder / 'edited_photos'
+    video_dir = source_folder / 'videos'
+    metadata_dir = source_folder / 'metadata'
+
+    # Create output directories if they don't exist
+    photo_dir.mkdir(exist_ok=True)
+    edited_dir.mkdir(exist_ok=True)
+    video_dir.mkdir(exist_ok=True)
+    metadata_dir.mkdir(exist_ok=True)
+
+    # Scan source folder for files	
+    files = scan_dir(source_folder)
+    photos, editedphotos, videos, metadata = seperate_files(files)
+
+    # Function to copy files to the appropriate directory
+    copy_files(photos, photo_dir)
+    copy_files(editedphotos, edited_dir)
+    copy_files(videos, video_dir)
+    copy_files(metadata, metadata_dir)
+
+    print("Files organized successfully!")
+    
