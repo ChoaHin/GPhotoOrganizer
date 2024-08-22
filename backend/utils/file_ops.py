@@ -11,6 +11,13 @@ def copy_file(src, dest):
     except Exception as e:
         print(f"Error copying file from {src} to {dest}: {e}")
 
+def copy_files(file_list, destination_dir):
+    ''' Copy a list of files to a destination directory '''
+    for file in file_list:
+        destination = destination_dir / file.name
+        copy_file(file, destination)
+
+
 def move_file(src, dest):
     ''' Move a file from src to dest'''
     try:
