@@ -33,6 +33,6 @@ def scan_dir(folder_path):
     for file_path in path.iterdir():
         if file_path.is_file():
             files.append(file_path)
-        elif file_path.is_dir():
-            scan_dir(file_path)
+        elif file_path.is_dir() and not file_path.is_symlink():
+            files.extend(scan_dir(file_path))
     return files
