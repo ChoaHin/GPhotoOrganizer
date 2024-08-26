@@ -27,12 +27,13 @@ def seperate_files(files):
     
     return photos, editedphotos, videos, metadata
 
-def organize_files(source_folder):
+def organize_files(source_folder, destination_folder):
+    ''' Organize files based on their type '''
     # Define output directories
-    photo_dir = source_folder / 'photos'
-    edited_dir = source_folder / 'edited_photos'
-    video_dir = source_folder / 'videos'
-    metadata_dir = source_folder / 'metadata'
+    photo_dir = destination_folder / 'photos'
+    edited_dir = destination_folder / 'edited_photos'
+    video_dir = destination_folder / 'videos'
+    metadata_dir = destination_folder / 'metadata'
 
     # Create output directories if they don't exist
     photo_dir.mkdir(exist_ok=True)

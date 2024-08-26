@@ -11,11 +11,11 @@ from pathlib import Path
 
 def main():
     print("Image File Manager - Backend Running")
-    sample_directory = Path("data/sample_photos")
+    sample_directory = Path("data/takeout-20240811T123851Z-001")
     sample_json = "data/sample_jsons/sample.json"
 
     # Organize files (example)
-    organize_files(sample_directory)
+    organize_files(sample_directory, Path("data/output"))
 
 if __name__ == "__main__":
     main()
