@@ -1,6 +1,6 @@
 #Tests for file operation utilities.
 import pytest
-from backend.utils.file_ops import copy_file, move_file, organize_files
+from backend.utils.file_ops import copy_file, move_file
 
 def test_copy_file(tmp_path):
     # Create a sample file
