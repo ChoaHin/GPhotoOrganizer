@@ -1,2 +1,2 @@
-pillow  # For image processing
 pytest  # For testing
+tkinter  # For GUI
