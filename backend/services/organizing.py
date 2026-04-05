@@ -29,6 +29,9 @@ def seperate_files(files):
 
 def organize_files(source_folder, destination_folder):
     ''' Organize files based on their type '''
+    # Ensure destination root exists first
+    destination_folder.mkdir(parents=True, exist_ok=True)
+
     # Define output directories
     photo_dir = destination_folder / 'photos'
     edited_dir = destination_folder / 'edited_photos'
@@ -36,10 +39,10 @@ def organize_files(source_folder, destination_folder):
     metadata_dir = destination_folder / 'metadata'
 
     # Create output directories if they don't exist
-    photo_dir.mkdir(exist_ok=True)
-    edited_dir.mkdir(exist_ok=True)
-    video_dir.mkdir(exist_ok=True)
-    metadata_dir.mkdir(exist_ok=True)
+    photo_dir.mkdir(parents=True, exist_ok=True)
+    edited_dir.mkdir(parents=True, exist_ok=True)
+    video_dir.mkdir(parents=True, exist_ok=True)
+    metadata_dir.mkdir(parents=True, exist_ok=True)
 
     # Scan source folder for files	
     files = scan_dir(source_folder)
