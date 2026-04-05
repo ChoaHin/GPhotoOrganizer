@@ -1,3 +1,5 @@
+# WORKING IN PROGRESS
+
 # GPhotoOrganizer
 
 GPhotoOrganizer is a desktop application designed to help users organize photos, videos, and metadata files in a chosen folder. It separates files by type and allows users to easily categorize and sort them. The application features both a command-line interface (CLI) for backend operations and a graphical user interface (GUI) for user-friendly interactions.
