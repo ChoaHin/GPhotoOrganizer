@@ -29,10 +29,20 @@ def main():
         return
 
     schema = infer_schema(data)
-    print("Inferred Schema:", schema)
+    
+    # Output schema to file
+    schema_file = output_directory / "schema.json"
+    with open(schema_file, 'w') as f:
+        json.dump(schema, f, indent=2)
+    print(f"Schema written to {schema_file}")
 
     # normalized data
     normalized_data = normalize_data(data, schema)
-    print("Normalized Data Sample:", normalized_data[:2])  # Print first 2 records
+    
+    # Output normalized data to file
+    normalized_file = output_directory / "normalized_data.json"
+    with open(normalized_file, 'w') as f:
+        json.dump(normalized_data, f, indent=2)
+    print(f"Normalized data written to {normalized_file}")
 if __name__ == "__main__":
     main()
