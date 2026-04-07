@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 # Import start here
 from services.organizing import organize_files
-from services.schema import infer_schema
+from services.schema import infer_schema, normalize_data
 from pathlib import Path
 from utils.file_ops import load_all_json
 
@@ -23,7 +23,6 @@ def main():
     # infer schema
     metadata_dir = output_directory / "metadata"
     data = load_all_json(metadata_dir)
-    print(f"Loaded {len(data)} metadata records from {metadata_dir}")
 
     if not data:
         print("No metadata JSON records found.")
@@ -31,5 +30,9 @@ def main():
 
     schema = infer_schema(data)
     print("Inferred Schema:", schema)
+
+    # normalized data
+    normalized_data = normalize_data(data, schema)
+    print("Normalized Data Sample:", normalized_data[:2])  # Print first 2 records
 if __name__ == "__main__":
     main()

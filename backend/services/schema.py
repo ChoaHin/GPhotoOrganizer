@@ -11,12 +11,11 @@ def infer_schema(data):
     return {key: sorted(list(types)) for key, types in schema.items()}
 
 def normalize_data(data, schema):
-    nomalized = []
+    normalized = []
 
     for item in data:
         new_item = {}
         for key in schema:
-            if key in schema:
-                new_item[key] = item.get[key, None]
-            else:
-                new_item[key] = None
+            new_item[key] = item.get(key, None)
+        normalized.append(new_item)
+    return normalized
