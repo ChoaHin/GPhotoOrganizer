@@ -1,4 +1,5 @@
 #Functions for file operations like copying, moving, renaming files, and managing directories.
+import json
 import os
 from pathlib import Path
 import shutil
@@ -36,3 +37,22 @@ def scan_dir(folder_path):
         elif file_path.is_dir() and not file_path.is_symlink():
             files.extend(scan_dir(file_path))
     return files
+
+def load_all_json(folder_path):
+    ''' Load all JSON files from a directory and return a list of their contents '''
+    path = Path(folder_path)
+    json_data = []
+    for file_path in path.glob("*.json"):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+                # handle both list and single object
+                if isinstance(data, list):
+                    json_data.extend(data)
+                else:
+                    json_data.append(data)
+                    
+        except Exception as e:
+            print(f"Error loading JSON file {file_path}: {e}")
+    return json_data

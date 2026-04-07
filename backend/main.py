@@ -10,22 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from services.organizing import organize_files
 from services.schema import infer_schema
 from pathlib import Path
-
-
-def load_metadata_json_records(metadata_dir: Path):
-    """Load all JSON payloads from metadata_dir into a single list of records."""
-    records = []
-
-    for json_file in metadata_dir.glob("*.json"):
-        with open(json_file, "r", encoding="utf-8") as f:
-            payload = json.load(f)
-
-        if isinstance(payload, list):
-            records.extend(payload)
-        elif isinstance(payload, dict):
-            records.append(payload)
-
-    return records
+from utils.file_ops import load_all_json
 
 def main():
     print("Image File Manager - Backend Running")
@@ -37,7 +22,8 @@ def main():
 
     # infer schema
     metadata_dir = output_directory / "metadata"
-    data = load_metadata_json_records(metadata_dir)
+    data = load_all_json(metadata_dir)
+    print(f"Loaded {len(data)} metadata records from {metadata_dir}")
 
     if not data:
         print("No metadata JSON records found.")
