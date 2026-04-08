@@ -7,10 +7,14 @@ import json
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 # Import start here
+from backend.services import schema
+from backend.services.executor import execute
 from services.organizing import organize_files
-from services.schema import infer_schema, normalize_data
+from services.schema import infer_schema
 from pathlib import Path
 from utils.file_ops import load_all_json
+from backend.services.functions import group_by_location, normalize_task, sort_by_date
+from backend.services.pipeline import build_pipeline
 
 def main():
     print("Image File Manager - Backend Running")
@@ -36,13 +40,33 @@ def main():
         json.dump(schema, f, indent=2)
     print(f"Schema written to {schema_file}")
 
-    # normalized data
-    normalized_data = normalize_data(data, schema)
+    # Create execution context
+    context = {
+        "data": data,
+        "schema": schema,
+        "normalized": None
+    }
+
+    # Build pipeline
+    tasks = build_pipeline(schema)
+
+    # Register task functions
+    functions = {
+        "normalize": normalize_task,
+        "sort_by_date": sort_by_date,
+        "group_by_location": group_by_location
+    }
+
+    # Execute pipeline
+    execute(tasks, functions, context)
+
+    # Save output
+    with open(output_directory / "normalized_data.json", 'w') as f:
+        json.dump(context["normalized"], f, indent=2)
+
+    print("Pipeline completed.")
     
-    # Output normalized data to file
-    normalized_file = output_directory / "normalized_data.json"
-    with open(normalized_file, 'w') as f:
-        json.dump(normalized_data, f, indent=2)
-    print(f"Normalized data written to {normalized_file}")
 if __name__ == "__main__":
     main()
+
+    
